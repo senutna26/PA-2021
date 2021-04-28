@@ -1,5 +1,6 @@
-class JObject(private val map: MutableMap<String, JSONType>) : JSONType{
+class JObject() : JSONType{
 
+    private val map: MutableMap<String, JSONType> = mutableMapOf()
 
     fun getMap(): MutableMap<String, JSONType> {
         return map
@@ -16,4 +17,6 @@ class JObject(private val map: MutableMap<String, JSONType>) : JSONType{
     override fun accept(visitor: Visitor) {
         visitor.visit(this)
     }
+
+
 }

@@ -1,17 +1,40 @@
 import java.io.File
-import java.nio.charset.Charset
+import java.nio.file.Path
 
-class Serializer(private val file: File) : Visitor {
+class Serializer() : Visitor {
 
     var nTabs = 0
     private var fullTextSerialized: String = ""
+
+
+    fun serializeFile(objToSerialize: JSONType){
+        objToSerialize.accept(this)
+
+    }
+
+    fun serializeToFile(objToSerialize: JSONType, file: File){
+        file.delete()
+        clearSerializedText()
+        objToSerialize.accept(this)
+        file.appendText(fullTextSerialized)
+        clearSerializedText()
+    }
+
 
     fun getFullTextSerialized(): String{
         return fullTextSerialized
     }
 
+    fun clearSerializedText(){
+        fullTextSerialized = ""
+    }
+
+    fun writeToFile(path: Path){
+        val file = File(path.toString() + "\\" + "root")
+        file.appendText(fullTextSerialized)
+    }
+
     fun write(any: String){
-        file.appendText(any)
         fullTextSerialized += any
     }
 

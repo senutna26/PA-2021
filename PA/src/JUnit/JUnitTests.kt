@@ -38,10 +38,9 @@ internal class JUnitTests {
     @Test
     fun serializeTest(){
 
-        val serializer = Serializer(File("C:\\Users\\antun\\Desktop\\a.txt"))
+        val serializer = Serializer()
         val obj = testObject()
         obj.accept(serializer)
-        //print(serializer.getFullTextSerialized())
         val s = "{ \n\t\"value1\": \"a\",\n\t\"value2\": \"11\",\n\t\"array1\": [ \n\t\t\"true\",\n\t\t{ \n\t\t}\n\t],\n\t\"object3\": { \n\t}\n}"
         assertEquals(s,serializer.getFullTextSerialized())
 
@@ -49,8 +48,8 @@ internal class JUnitTests {
 
     @Test
     fun converterTest(){
-        val serializer = Serializer(File("C:\\Users\\antun\\Desktop\\a.txt"))
-        val serializer2 = Serializer(File("C:\\Users\\antun\\Desktop\\a.txt"))
+        val serializer = Serializer()
+        val serializer2 = Serializer()
         val comms = Comms(HashMap<String, JSONType>())
 
         val object1 = JObject()

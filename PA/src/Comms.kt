@@ -10,37 +10,26 @@ import kotlin.collections.Collection as Collection1
 
 class Comms(private val rootMap: MutableMap<String, JSONType>){
 
-    fun serializeFile(path: Path, root: String){
-        val file = File(path.toString() + "\\" + root)
-        //file.writeText("wakeup")
-        val serializer = Serializer(file)
-        rootMap[root]?.accept(serializer)
+    fun getJsonName(root: String): JSONType{
+        val temp: ArrayList<JSONType> = arrayListOf()
+        for ((k,v) in rootMap){
+            if(k == root)
+                temp.add(v)
+        }
+        return temp[0]
     }
-
-    fun serializeFile2(path: Path, root: JSONType){
-        val file = File(path.toString() + "\\" + "yau")
-        //file.writeText("wakeup")
-        val serializer = Serializer(file)
-        root.accept(serializer)
-    }
-
-
 
     fun search(root: JSONType){
         val searchAnything: (JSONType) -> Boolean = { value -> value is JValue && value.getValue() is String }
+        //val searchAnything1: (JSONType) -> Boolean = {value -> value}
         val searcher = Searcher(searchAnything)
         //rootMap[root]?.accept(searcher)
         root.accept(searcher)
         searcher.searchFun()
-
     }
 
     fun addJSON(root: String,json: JSONType){
         rootMap[root] = json
-    }
-
-    fun removeJSON(root: String){
-        rootMap.remove(root)
     }
 
     /*Conversão para JSON*/
@@ -89,7 +78,7 @@ class Comms(private val rootMap: MutableMap<String, JSONType>){
 
         }
 
-        print("" + anyObj)
+
         return anyObj
 
 

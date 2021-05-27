@@ -3,7 +3,6 @@ class Searcher(private val condition: (JSONType) -> Boolean) : Visitor {
     val searchResult = arrayListOf<Any>()
 
     fun searchFun(): ArrayList<Any>{
-        print("" + searchResult)
         return searchResult
     }
 

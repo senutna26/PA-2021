@@ -1,4 +1,4 @@
-class JValue(private val any: Any) : JSONType {
+class JValue(private var any: Any) : JSONType {
 
     override fun accept(visitor: Visitor) {
         visitor.visit(this)
@@ -8,7 +8,12 @@ class JValue(private val any: Any) : JSONType {
         return any
     }
 
+    override fun toString(): String {
+        return any.toString()
+    }
 
-
+    fun editValue(change: Any){
+        any = change
+    }
 
 }
